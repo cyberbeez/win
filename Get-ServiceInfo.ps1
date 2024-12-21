@@ -14,3 +14,4 @@ $serviceDisplayName = @{Name = 'Service DisplayName'; Expression ={$_.Caption}}
 
 ## Command
 Get-CimInstance -ClassName Win32_Service -Filter "StartName != 'LocalSystem' AND NOT StartName LIKE 'NT Authority%'" | Select-Object SystemName, $serviceName, $serviceDisplayName, StartMode, StartName, State | Sort-Object StartName
+pause
