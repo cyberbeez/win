@@ -3,10 +3,10 @@
 
 ## Clean up broken administrators
 
-$administrators = @ (
-( [ADSI] "WinNT://./Administrators") .psbase.Invoke('Members') |
+$administrators = @(
+([ADSI] "WinNT://./Administrators").psbase.Invoke('Members') |
 %  {
-  $_.GetType () .InvokeMember ('AdsPath','GetProperty',@null,$$($_),$null)
+  $_.GetType().InvokeMember('AdsPath','GetProperty',$null,$($_),$null)
 }
 ) -match '^WinNT';
 
@@ -17,15 +17,16 @@ $administrators
 foreach ($administrator in $administrators)
 {
 
-if ($administraotr -like "$env:COMPUTERNAME/*" -or $administrator -like "AzureAd/
+if ($administrator -like "$env:COMPUTERNAME/*" -or $administrator -like "AzureAd/")
 {
     continue;
 }
 
-Remove-LocalGroupMember -grepu "administrators" -member $administrator
+Remove-LocalGroupMember -group "administrators" -member $administrator
 }
 
 ## Get domain admins
 Get-ADGroupMember 'Domain Admins' | Select-Object Name, SamAccountName
 Get-ADGroupMember 'Enterprise Admins' | Select-Object Name, SamAccountName
 Get-LocalGroupMember 'Administrators' | Select-Object Name, SamAccountName
+pause
