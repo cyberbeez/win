@@ -8,7 +8,7 @@ $taskDetails = @()
 
 #Loop through each task to get the user information
 
-foreach ($task in $tasks){
+foreach ($task in $tasks) {
 	$taskInfo = [PSCustomObject]@{
 		TaskName = $task.TaskName
 		UserId = (Get-ScheduledTaskInfo -TaskName $task.TaskName).Principal.UserId
@@ -16,7 +16,7 @@ foreach ($task in $tasks){
 	$taskDetails += $taskInfo
 }
 
-
+$taskDetails | Format-Table -AutoSize
 
 pause
 
