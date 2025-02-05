@@ -11,7 +11,7 @@ $taskDetails = @()
 foreach ($task in $tasks) {
 	$taskInfo = [PSCustomObject]@{
 		TaskName = $task.TaskName
-		UserId = (Get-ScheduledTaskInfo -TaskName $task.TaskName).Principal.UserId
+		UserId = (Get-ScheduledTask -TaskName $task.TaskName).Principal.UserId
 	}
 	$taskDetails += $taskInfo
 }
