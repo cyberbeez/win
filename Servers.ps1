@@ -1,4 +1,4 @@
-$servers = 127.0.0.1
+$servers = 172.20.242.200
 
 foreach ($server in $servers) {
     $tasks = get-scheduledtask -cimsession $server -TaskPath "" | Where-Object taskname -notmatch 'shadowcopy|user_feedsync|Google|optimize' | Select-Object pscomputername,TaskName, @{Name="Run As";Expression={ $.principal.userid }},state
