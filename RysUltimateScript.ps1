@@ -9,7 +9,7 @@ Add-MpPreference -AttackSurfaceReductionRules_Ids 01443614-cd74-433a-b99e-2ecdc0
 Set-MpPreference -EnableNetworkProtection Enabled 
 
 #Disable SMB
-Set-SmbServerConfiguration -EnableSMB1protocl $false
+Set-SmbServerConfiguration -EnableSMB1protocol $false
 
 #Set RRL (DDOS Prevention)
 Set-DnsServerResponseRateLimiting -WindowInSec 10 -LeakRate 2 -ResponsesPerSec 10
