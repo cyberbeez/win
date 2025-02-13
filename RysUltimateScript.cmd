@@ -167,3 +167,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v fEncr
 
 :: Enable Defender periodic scanning
 reg add "HKCU\SOFTWARE\Microsoft\Windows Defender" /v PassiveMode /t REG_DWORD /d 2 /f
+
+:: Prevent Zerologon Vulnerability
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" /v Zerologon /t REG_DWORD /d 1 /f
