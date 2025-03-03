@@ -16,11 +16,11 @@ Get-WmiObject -Class Win32_LogicalDisk | ForEach-Object {
     }
     # Check thresholds and send alerts
     if ($percentUsed -ge $criticalThreshold90) {
-       Write-Output ("Warning! Disk Threshold has reached 90%!! PLEASE TAKE IMMEDIATE ACTION!") | Add-content .\logfile.text
+       Write-Output ("Warning! Disk Threshold has reached 90%!! PLEASE TAKE IMMEDIATE ACTION!") | Add-content .\CriticalDiskLog.txt
     } elseif ($percentUsed -ge $warningThreshold80) {
-       Write-Output ("Warning! Disk Threshold has reached 80%!! Please really consider taking action") | Add-content .\logfile.text
+       Write-Output ("Warning! Disk Threshold has reached 80%!! Please really consider taking action") | Add-content .\WarningDiskLog.txt
     } elseif ($percentUsed -ge $warningThreshold50) {
-       Write-Output ("Warning! Disk Threshold has reached 50%!! Consider Taking Action") | Add-content .\logfile.text
+       Write-Output ("Warning! Disk Threshold has reached 50%!! Consider Taking Action") | Add-content .\ConcernedDiskLog.txt
     }
 }
 pause
