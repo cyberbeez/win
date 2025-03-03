@@ -3,16 +3,21 @@ $warningThreshold50 = 50
 $warningThreshold80 = 80
 $criticalThreshold90 = 90
 
+# Email settings
+$smtpServer = "your_smtp_server"
+$fromAddress = "sender@example.com"
+$toAddress = "recipient@example.com"
 
 # Get disk information
 Get-WmiObject -Class Win32_LogicalDisk | ForEach-Object {
-    $drive = $_.DeviceID
-    $freeSpaceGB = [Math]::Round($_.FreeSpace / 1GB, 2)
-    $totalSpaceGB = [Math]::Round($_.Size / 1GB, 2)
-    $usedSpaceGB = $totalSpaceGB - $freeSpaceGB
-    $percentFree = [Math]::Round(($freeSpaceGB / $totalSpaceGB) * 100, 2)
-    $percentUsed = 100 - $percentFree
-
+    if ($_.Size -gt 0) {
+        $drive = $_.DeviceID
+        $freeSpaceGB = [Math]::Round($_.FreeSpace / 1GB, 2)
+        $totalSpaceGB = [Math]::Round($_.Size / 1GB, 2)
+        $usedSpaceGB = $totalSpaceGB - $freeSpaceGB
+        $percentFree = [Math]::Round(($freeSpaceGB / $totalSpaceGB) * 100, 2)
+        $percentUsed = 100 - $percentFree
+    }
     # Check thresholds and send alerts
     if ($percentUsed -ge $criticalThreshold90) {
         $subject = "CRITICAL: Disk space alert for $drive"
