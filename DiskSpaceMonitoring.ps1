@@ -3,11 +3,6 @@ $warningThreshold50 = 50
 $warningThreshold80 = 80
 $criticalThreshold90 = 90
 
-# Email settings
-$smtpServer = "your_smtp_server"
-$fromAddress = "sender@example.com"
-$toAddress = "recipient@example.com"
-
 # Get disk information
 Get-WmiObject -Class Win32_LogicalDisk | ForEach-Object {
     if ($_.Size -gt 0) {
@@ -20,17 +15,11 @@ Get-WmiObject -Class Win32_LogicalDisk | ForEach-Object {
     }
     # Check thresholds and send alerts
     if ($percentUsed -ge $criticalThreshold90) {
-        $subject = "CRITICAL: Disk space alert for $drive"
-        $body = "Disk $drive is at $percentUsed% usage. Available space: $freeSpaceGB GB. Please take action immediately."
-        Send-MailMessage -SmtpServer $smtpServer -From $fromAddress -To $toAddress -Subject $subject -Body $body
+       Write-Output ("Warning! Disk Threshold has reached 90%!! PLEASE TAKE IMMEDIATE ACTION!") | Add-content .\logfile.text
     } elseif ($percentUsed -ge $warningThreshold80) {
-        $subject = "WARNING: Disk space alert for $drive"
-        $body = "Disk $drive is at $percentUsed% usage. Available space: $freeSpaceGB GB."
-        Send-MailMessage -SmtpServer $smtpServer -From $fromAddress -To $toAddress -Subject $subject -Body $body
+       Write-Output ("Warning! Disk Threshold has reached 80%!! Please really consider taking action") | Add-content .\logfile.text
     } elseif ($percentUsed -ge $warningThreshold50) {
-         $subject = "WARNING: Disk space alert for $drive"
-        $body = "Disk $drive is at $percentUsed% usage. Available space: $freeSpaceGB GB."
-        Send-MailMessage -SmtpServer $smtpServer -From $fromAddress -To $toAddress -Subject $subject -Body $body
+       Write-Output ("Warning! Disk Threshold has reached 50%!! Consider Taking Action") | Add-content .\logfile.text
     }
 }
 pause
