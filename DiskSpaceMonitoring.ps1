@@ -5,6 +5,7 @@ $criticalThreshold90 = 90
 
 # Get disk information
 Get-WmiObject -Class Win32_LogicalDisk | ForEach-Object {
+    $percentUsed = 0
     if ($_.Size -gt 0) {
         $drive = $_.DeviceID
         $freeSpaceGB = [Math]::Round($_.FreeSpace / 1GB, 2)
