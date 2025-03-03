@@ -28,3 +28,4 @@ Get-WmiObject -Class Win32_LogicalDisk | ForEach-Object {
         Send-MailMessage -SmtpServer $smtpServer -From $fromAddress -To $toAddress -Subject $subject -Body $body
     }
 }
+pause
