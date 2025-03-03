@@ -22,6 +22,12 @@ Add-MpPreference -AttackSurfaceReductionRules_Ids 5BEB7EFE-FD9A-4556-801D-275E5F
 
 #Blocks executable content from Email/Webmail
 Add-MpPreference -AttackSurfaceReductionRules_Ids BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 -AttackSurfaceReductionRules_Actions Enabled
+#Stop/Disable certain services
+Stop-Service -Name "Print Spooler"
+Stop-Service -Name "Windows Mobile Hotspot Service"
+
+# Reset Windows Firewall to Default
+(New-Object -ComObject HNetCfg.FwPolicy2).RestoreLocalFirewallDefaults()
 
 #Secure Execution Policy
 Set-ExecutionPolicy Restricted
