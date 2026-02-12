@@ -1,3 +1,4 @@
+::BEFORE MOVING FORWARD, PLEASE RUN RYSULTIMATESCRIPT.PS1 FIRST OR THINGS WILL NOT WORK AS INTENDED!!!
 ::Disable the ClickOnce trust promp
 ::this only partially mitigates the risk of malicious ClickOnce Appps - the ability to run the manifest is disabled, but hash retrieval is still possible
 reg add "HKLM\SOFTWARE\MICROSOFT\.NETFramework\Security\TrustManager\PromptingLevel" /v MyComputer /t REG_SZ /d "Disabled" /f
@@ -170,3 +171,4 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows Defender" /v PassiveMode /t REG_DWORD /
 
 :: Prevent Zerologon Vulnerability
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" /v Zerologon /t REG_DWORD /d 1 /f
+
